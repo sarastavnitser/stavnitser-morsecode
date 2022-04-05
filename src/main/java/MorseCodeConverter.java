@@ -2,91 +2,52 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-public class MorseCodeConverter
-{
+public class MorseCodeConverter {
     static Map<String, String> morse = new HashMap<>();
+    static Map<String, String> revMorse = new HashMap<>();
 
-    public static void main(String[] args)
-    {
-        morse.put("a", ".-");
-        morse.put("b", "-...");
-        morse.put("c", "-.-.");
-        morse.put("d", "-..");
-        morse.put("e", ".");
-        morse.put("f", "..-.");
-        morse.put("g", "--.");
-        morse.put("h", "....");
-        morse.put("i", "..");
-        morse.put("j", ".---");
-        morse.put("k", "-.-");
-        morse.put("l", ".-..");
-        morse.put("m", "--");
-        morse.put("n", "-.");
-        morse.put("o", "---");
-        morse.put("p", ".--.");
-        morse.put("q", "--.-");
-        morse.put("r", ".-.");
-        morse.put("s", "...");
-        morse.put("t", "-");
-        morse.put("u", "..-");
-        morse.put("v", "...-");
-        morse.put("w", ".--");
-        morse.put("x", "-..-");
-        morse.put("y", "-.--");
-        morse.put("z", "--..");
-        morse.put("0", "-----");
-        morse.put("1", ".----");
-        morse.put("2", "..---");
-        morse.put("3", "...--");
-        morse.put("4", "....-");
-        morse.put("5", ".....");
-        morse.put("6", "-....");
-        morse.put("7", "--...");
-        morse.put("8", "---..");
-        morse.put("9", "----.");
-
-        Scanner scanner = new Scanner(System.in);
-        String inp = scanner.nextLine();
-        System.out.print(isMoresPalindrome(inp) ? "YES" : "NO");
-    }
-
-    private static boolean isMoresPalindrome(String inp)
-    {
-        String translation = translate(inp);
-        // Pointers pointing to the beginning
-        // and the end of the string
-        int i = 0, j = translation.length() - 1;
-
-        // While there are characters to compare
-        while (i < j) {
-
-            // If there is a mismatch
-            if (translation.charAt(i) != translation.charAt(j))
-                return false;
-
-            // Increment first pointer and
-            // decrement the other
-            i++;
-            j--;
+    public MorseCodeConverter() {
+        String[] morses = {"a .-", "b -...", "c -.-.", "d -..", "e .", "f ..-.", "g --.", "h ....", "i ..", "j .---", "k -.-",
+                "l .-..", "m --", "n -.", "o ---", "p .--.", "q --.-", "r .-.", "s ...", "t -", "u ..-", "v ...-", "w .--", "x -..-",
+                "y -.--", "z --..", "0 -----", "1 .----", "2 ..---", "3 ...--", "4 ....-", "5 .....", "6 -....", "7 --...", "8 ---..",
+                "9 ----."};
+        for (int i = 0; i < morses.length; i++) {
+            String defSplit[] = morses[i].split(" ");
+            morse.put(defSplit[0], defSplit[1]);
+            revMorse.put(defSplit[1], defSplit[0]);
+            morse.put(" ", " ");
+            revMorse.put(" ", " ");
         }
 
-        // Given string is a palindrome
-        return true;
+
     }
 
-    private static String translate(String inp)
-    {
+    public static void main(String[] args) {
+        MorseCodeConverter morseCodeConverter = new MorseCodeConverter();
+        System.out.println(morseCodeConverter.toMorse("hello"));
+    }
+
+
+    String toMorse(String inp) {
         inp = inp.toLowerCase();
         StringBuilder sb = new StringBuilder();
         char[] inpChar = inp.toCharArray();
-        for (char letter : inpChar)
-        {
-            if (morse.get(letter+"") != null)
-            {
+        for (char letter : inpChar) {
+            if (morse.get(letter + "") != null) {
                 sb.append(morse.get(letter + ""));
+                sb.append(" ");
             }
         }
-//        System.out.println(sb);
+        return sb.toString().trim();
+    }
+
+    String toEnglish(String inp) {
+        StringBuilder sb = new StringBuilder();
+        String elements[] = inp.split(" ");
+        for (int i = 0; i < elements.length; i++) {
+            if (!elements[i].equals(""))
+                sb.append(revMorse.get(elements[i] + ""));
+        }
         return sb.toString();
     }
 }
