@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
@@ -24,6 +25,8 @@ public class MorseCodeFrame extends JFrame {
 
         MorseCodeConverter morseCodeConverter = new MorseCodeConverter();
 
+        presenter = new MorseCodePresenter(this, morseCodeConverter);
+
         verticalPanelLeft = new JPanel();
         verticalPanelLeft.setLayout(new BoxLayout(verticalPanelLeft, BoxLayout.Y_AXIS));
         add(verticalPanelLeft);
@@ -48,19 +51,26 @@ public class MorseCodeFrame extends JFrame {
         toMorseButton.addActionListener(this::onToMorseClicked);
         verticalPanelRight.add(toMorseButton);
 
-        toEnglishLabel = new JLabel(" ");
-        toEnglishLabel.setPreferredSize(new Dimension(120, 60));
+        toEnglishLabel = new JLabel(("                          "));
+        toEnglishLabel.setPreferredSize(new Dimension(130, 30));
+        toEnglishLabel.setBorder(new LineBorder(Color.black));
         verticalPanelLeft.add(toEnglishLabel);
 
+        toMorseLabel = new JLabel(("                          "));
+        toMorseLabel.setPreferredSize(new Dimension(130, 30));
+        toMorseLabel.setBorder(new LineBorder(Color.black));
+        verticalPanelRight.add(toMorseLabel);
 
     }
 
     private void onToMorseClicked(ActionEvent event) {
-
+        String word = toMorseInput.getText();
+        presenter.toMorse(word);
     }
 
     private void onToEnglishClicked(ActionEvent event){
-
+        String word = toEnglishInput.getText();
+        presenter.toEnglish(word);
     }
 
     public void setToEnglishLabel(String english){
@@ -69,5 +79,10 @@ public class MorseCodeFrame extends JFrame {
 
     public void setToMorseLabel(String morse){
         toMorseLabel.setText(morse);
+    }
+
+    public static void main(String[] args) {
+        JFrame frame = new MorseCodeFrame();
+        frame.setVisible(true);
     }
 }

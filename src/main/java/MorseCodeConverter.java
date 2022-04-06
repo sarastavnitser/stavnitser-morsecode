@@ -31,6 +31,11 @@ public class MorseCodeConverter {
             if (morse.get(letter + "") != null) {
                 sb.append(morse.get(letter + ""));
                 sb.append(" ");
+            } else {
+                sb.delete(0, sb.length());
+                sb.append("Not morse code compatible. \n" +
+                          "Please enter only letters \nor numbers");
+                break;
             }
         }
         return sb.toString().trim();
@@ -40,8 +45,15 @@ public class MorseCodeConverter {
         StringBuilder sb = new StringBuilder();
         String elements[] = inp.split(" ");
         for (int i = 0; i < elements.length; i++) {
-            if (!elements[i].equals(""))
+            if (revMorse.get(elements[i] + "") != null) {
                 sb.append(revMorse.get(elements[i] + ""));
+            } else {
+                sb.delete(0, sb.length());
+                sb.append("Not morse code compatible. \n" +
+                          "Please enter only morse \n" +
+                          "code compatible letters \nseparated by spaces");
+                break;
+            }
         }
         return sb.toString();
     }
