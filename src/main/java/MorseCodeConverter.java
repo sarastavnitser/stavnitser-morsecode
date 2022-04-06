@@ -15,18 +15,19 @@ public class MorseCodeConverter {
             String defSplit[] = morses[i].split(" ");
             morse.put(defSplit[0], defSplit[1]);
             revMorse.put(defSplit[1], defSplit[0]);
-//            morse.put(" ", " ");
-//            revMorse.put(" ", " ");
+
         }
+        morse.put(" ", " ");
+        revMorse.put(" ", " ");
 
 
     }
 
 
-    String toMorse(String inp) {
-        inp = inp.toLowerCase();
+    public String toMorse(String input) {
+        input = input.toLowerCase();
         StringBuilder sb = new StringBuilder();
-        char[] inpChar = inp.toCharArray();
+        char[] inpChar = input.toCharArray();
         for (char letter : inpChar) {
             String translation = morse.get(String.valueOf(letter));
             if (translation != null) {
@@ -42,7 +43,7 @@ public class MorseCodeConverter {
         return sb.toString().trim();
     }
 
-    String toEnglish(String inp) {
+    public String toEnglish(String inp) {
         StringBuilder sb = new StringBuilder();
         String elements[] = inp.split(" ");
         for (int i = 0; i < elements.length; i++) {
