@@ -22,11 +22,6 @@ public class MorseCodeConverter {
 
     }
 
-    public static void main(String[] args) {
-        MorseCodeConverter morseCodeConverter = new MorseCodeConverter();
-        System.out.println(morseCodeConverter.toMorse("hello"));
-    }
-
 
     String toMorse(String inp) {
         inp = inp.toLowerCase();
