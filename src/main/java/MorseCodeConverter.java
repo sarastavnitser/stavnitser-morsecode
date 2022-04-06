@@ -15,8 +15,8 @@ public class MorseCodeConverter {
             String defSplit[] = morses[i].split(" ");
             morse.put(defSplit[0], defSplit[1]);
             revMorse.put(defSplit[1], defSplit[0]);
-            morse.put(" ", " ");
-            revMorse.put(" ", " ");
+//            morse.put(" ", " ");
+//            revMorse.put(" ", " ");
         }
 
 
@@ -28,8 +28,9 @@ public class MorseCodeConverter {
         StringBuilder sb = new StringBuilder();
         char[] inpChar = inp.toCharArray();
         for (char letter : inpChar) {
-            if (morse.get(letter + "") != null) {
-                sb.append(morse.get(letter + ""));
+            String translation = morse.get(String.valueOf(letter));
+            if (translation != null) {
+                sb.append(translation);
                 sb.append(" ");
             } else {
                 sb.delete(0, sb.length());
@@ -45,8 +46,9 @@ public class MorseCodeConverter {
         StringBuilder sb = new StringBuilder();
         String elements[] = inp.split(" ");
         for (int i = 0; i < elements.length; i++) {
-            if (revMorse.get(elements[i] + "") != null) {
-                sb.append(revMorse.get(elements[i] + ""));
+            String translation = revMorse.get(String.valueOf(elements[i]));
+            if (translation != null) {
+                sb.append(translation);
             } else {
                 sb.delete(0, sb.length());
                 sb.append("Not morse code compatible. \n" +
